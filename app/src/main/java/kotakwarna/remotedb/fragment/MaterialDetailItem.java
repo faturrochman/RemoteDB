@@ -5,18 +5,14 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import kotakwarna.remotedb.Main;
 import kotakwarna.remotedb.R;
@@ -70,7 +66,7 @@ public class MaterialDetailItem extends Fragment{
         protected String doInBackground(String... urls) {
             String url = API.MATERIAL_VIEW+materialBean.getMaterial_id();
             KotakwarnaHttpRequest httpRequest = new KotakwarnaHttpRequest(url);
-            String jSonResponse = httpRequest.getResponse();
+            String jSonResponse = httpRequest.requestGet();
             return jSonResponse;
 
         }

@@ -32,16 +32,6 @@ public class KotakwarnaHttpRequest {
         this.url = url;
     }
 
-    public String getResponse() {
-
-        String response = null;
-        Log.i("url ", url);
-
-        response = getJSON(url);
-        Log.i("Response ", response);
-        return response;
-    }
-
     public String requestPost(List<KotakWarnaParam> params){
 
         StringBuilder builder = new StringBuilder();
@@ -58,8 +48,6 @@ public class KotakwarnaHttpRequest {
             }
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-
-
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
             StatusLine statusLine = response.getStatusLine();
@@ -73,38 +61,29 @@ public class KotakwarnaHttpRequest {
                     builder.append(line);
                 }
             } else {
-                Log.e("Error","Failed to post Request");
+                Log.e("Error","Failed to Request POST");
             }
 
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        
-
-        return builder.toString();
+        String response = builder.toString();
+        return response;
     }
 
-    // ---Connects using HTTP GET---
-    public static InputStream OpenHttpGETConnection(String url) {
-        InputStream inputStream = null;
-        try {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
-            inputStream = httpResponse.getEntity().getContent();
-        } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
-        return inputStream;
-    }
+    public String requestGet(){
 
-    public String getJSON(String address){
         StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(address);
-        try{
-            HttpResponse response = client.execute(httpGet);
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(url);
+
+        try {
+            // Execute HTTP Get Request
+            HttpResponse response = httpclient.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
             if(statusCode == 200){
@@ -116,14 +95,17 @@ public class KotakwarnaHttpRequest {
                     builder.append(line);
                 }
             } else {
-                Log.e("Error","Failed to get JSON object");
+                Log.e("Error","Failed to Request GET");
             }
-        }catch(ClientProtocolException e){
+
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return builder.toString();
+        String response = builder.toString();
+        return response;
     }
-
 }

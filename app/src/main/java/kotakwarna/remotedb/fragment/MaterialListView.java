@@ -11,18 +11,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import kotakwarna.remotedb.Main;
-import kotakwarna.remotedb.MainImpl;
 import kotakwarna.remotedb.R;
 import kotakwarna.remotedb.beans.MaterialBean;
 import kotakwarna.remotedb.conf.API;
-import kotakwarna.remotedb.factory.FragmentTag;
 import kotakwarna.remotedb.helper.DialogHelper;
 import kotakwarna.remotedb.network.KotakwarnaHttpRequest;
 import kotakwarna.remotedb.parser.MaterialParser;
@@ -55,7 +52,7 @@ public class MaterialListView extends Fragment {
         String jSonResponse;
         protected String doInBackground(String... urls) {
             KotakwarnaHttpRequest httpRequest = new KotakwarnaHttpRequest(API.MATERIAL_ALL);
-            jSonResponse = httpRequest.getResponse();
+            jSonResponse = httpRequest.requestGet();
             return jSonResponse;
 
         }
