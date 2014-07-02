@@ -2,15 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@android:color/white"
     tools:context=".MaterialListView">
+
+    <RelativeLayout
+        android:id="@+id/rl_top_menu"
+        android:background="@color/White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <SearchView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sv_listview_material"
+            android:queryHint="@string/sv_search_material"
+            android:layout_alignParentLeft="true" />
+
+        <Button
+            android:id="@+id/b_add_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/b_add_material"
+            android:textSize="10sp"
+            android:textColor="@color/Black"
+            android:background="@drawable/button_listview_material"
+            android:padding="15dp"/>
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/rl_top_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

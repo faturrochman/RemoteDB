@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="drawer_menu">
+        <item>@string/drawer_menu_title</item>
+        <item>@string/drawer_menu_1</item>
+        <item>@string/drawer_menu_2</item>
+        <item>@string/drawer_menu_3</item>
+        <item>@string/drawer_menu_4</item>
+        <item>@string/drawer_menu_5</item>
+    </string-array>
+
+    <string-array name="drawer_menu_icon">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_right</item>
+        <item>@drawable/ic_right</item>
+        <item>@drawable/ic_right</item>
+        <item>@drawable/ic_right</item>
+        <item>@drawable/ic_right</item>
+    </string-array>
+</resources>

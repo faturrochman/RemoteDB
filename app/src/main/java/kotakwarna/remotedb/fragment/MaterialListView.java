@@ -2,22 +2,23 @@ package kotakwarna.remotedb.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import kotakwarna.remotedb.Main;
 import kotakwarna.remotedb.R;
+import kotakwarna.remotedb.adapter.CustomListViewMaterialAdapter;
 import kotakwarna.remotedb.beans.MaterialBean;
 import kotakwarna.remotedb.conf.API;
 import kotakwarna.remotedb.helper.DialogHelper;
@@ -34,6 +35,7 @@ public class MaterialListView extends Fragment {
     private ListView myList;
     private DialogHelper dialogHelper;
     private ProgressDialog progressDialog;
+    private Button b_add_material;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +44,15 @@ public class MaterialListView extends Fragment {
         myList = (ListView) viewHierarchy.findViewById(R.id.list);
         dialogHelper = new DialogHelper();
         progressDialog = dialogHelper.buildProgressDialog(getActivity(), "Loading...");
+
+
+        b_add_material = (Button) viewHierarchy.findViewById(R.id.b_add_material);
+
+        Drawable drawable = getActivity().getResources().getDrawable(R.drawable.ic_add);
+        drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.5),
+                (int)(drawable.getIntrinsicHeight()*0.5));
+        ScaleDrawable sd = new ScaleDrawable(drawable, 0, 20, 20);
+        b_add_material.setCompoundDrawables(sd.getDrawable(), null, null, null);
 
         new DownloadTextTask().execute();
         return viewHierarchy;
@@ -86,16 +97,19 @@ public class MaterialListView extends Fragment {
                 i++;
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.listview_item, listContent);
-            myList.setAdapter(adapter);
-            myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.listview_item, listContent);
 
-                    Main main = (Main) getActivity();
-                    main.onChangeFragmentToMaterialDetailItem((MaterialBean) x.get(position));
-                }
-            });
+            CustomListViewMaterialAdapter adapter = new CustomListViewMaterialAdapter(getActivity(), materialBeans);
+
+            myList.setAdapter(adapter);
+//            myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                    Main main = (Main) getActivity();
+//                    main.onChangeFragmentToMaterialDetailItem((MaterialBean) x.get(position));
+//                }
+//            });
 
         }
     }
