@@ -1,7 +1,6 @@
 package kotakwarna.remotedb;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -42,8 +41,8 @@ public class MainImpl extends Activity implements Main{
     @Override
     public void onChangeFragmentToMaterialDetailItem(MaterialBean materialBean) {
 
-        fm = getFragmentManager();
-        ft = fm.beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
         MaterialDetailItem materialDetailItem = new MaterialDetailItem();
         Bundle args = new Bundle();
@@ -51,6 +50,8 @@ public class MainImpl extends Activity implements Main{
         materialDetailItem.setArguments(args);
         if(!materialDetailItem.isInLayout()){
             ft.replace(R.id.rl_main_layout, materialDetailItem, FragmentTag.MATERIAL_DETAIL_ITEM);
+            ft.setCustomAnimations(R.anim.anim_slide_in_left,
+                    R.anim.anim_slide_out_left);
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -58,8 +59,8 @@ public class MainImpl extends Activity implements Main{
 
     @Override
     public void onChangeFragmentToMaterialDetailEdit(MaterialBean materialBean) {
-        fm = getFragmentManager();
-        ft = fm.beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
         MaterialDetailEdit materialDetailEdit = new MaterialDetailEdit();
         Bundle args = new Bundle();
@@ -67,6 +68,8 @@ public class MainImpl extends Activity implements Main{
         materialDetailEdit.setArguments(args);
         if(!materialDetailEdit.isInLayout()){
             ft.replace(R.id.rl_main_layout, materialDetailEdit, FragmentTag.MATERIAL_DETAIL_EDIT);
+            ft.setCustomAnimations(R.anim.anim_slide_in_left,
+                    R.anim.anim_slide_out_left);
             ft.addToBackStack(null);
             ft.commit();
         }

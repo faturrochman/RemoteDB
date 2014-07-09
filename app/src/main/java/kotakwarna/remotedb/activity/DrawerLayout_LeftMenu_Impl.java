@@ -93,10 +93,10 @@ public class DrawerLayout_LeftMenu_Impl extends ActionBarActivity implements Mai
         ft = fm.beginTransaction();
 
         MaterialListView materialListView = new MaterialListView();
-        if(!materialListView.isInLayout()){
-            ft.add(R.id.content_frame, materialListView, FragmentTag.MATERIAL_LIST_VIEW);
-            ft.commit();
-        }
+        ft.remove(materialListView);
+        ft.add(R.id.content_frame, materialListView, FragmentTag.MATERIAL_LIST_VIEW);
+        ft.commit();
+
     }
 
 
@@ -113,8 +113,8 @@ public class DrawerLayout_LeftMenu_Impl extends ActionBarActivity implements Mai
     @Override
     public void onChangeFragmentToMaterialDetailItem(MaterialBean materialBean) {
 
-        fm = getFragmentManager();
-        ft = fm.beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
         MaterialDetailItem materialDetailItem = new MaterialDetailItem();
         Bundle args = new Bundle();
@@ -122,6 +122,8 @@ public class DrawerLayout_LeftMenu_Impl extends ActionBarActivity implements Mai
         materialDetailItem.setArguments(args);
         if(!materialDetailItem.isInLayout()){
             ft.replace(R.id.content_frame, materialDetailItem, FragmentTag.MATERIAL_DETAIL_ITEM);
+            ft.setCustomAnimations(R.anim.anim_slide_in_left,
+                    R.anim.anim_slide_out_left);
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -129,8 +131,8 @@ public class DrawerLayout_LeftMenu_Impl extends ActionBarActivity implements Mai
 
     @Override
     public void onChangeFragmentToMaterialDetailEdit(MaterialBean materialBean) {
-        fm = getFragmentManager();
-        ft = fm.beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
         MaterialDetailEdit materialDetailEdit = new MaterialDetailEdit();
         Bundle args = new Bundle();
@@ -138,6 +140,8 @@ public class DrawerLayout_LeftMenu_Impl extends ActionBarActivity implements Mai
         materialDetailEdit.setArguments(args);
         if(!materialDetailEdit.isInLayout()){
             ft.replace(R.id.content_frame, materialDetailEdit, FragmentTag.MATERIAL_DETAIL_EDIT);
+            ft.setCustomAnimations(R.anim.anim_slide_in_left,
+                    R.anim.anim_slide_out_left);
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -173,5 +177,15 @@ public class DrawerLayout_LeftMenu_Impl extends ActionBarActivity implements Mai
         // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

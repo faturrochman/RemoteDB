@@ -3,6 +3,8 @@ package kotakwarna.remotedb.fragment;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ public class MaterialDetailItem extends Fragment{
 
     private View viewHierarchy;
     private LinearLayout ll_detail_item;
-    private Button b_edit_detail_item;
+    private Button b_edit_detail_item, b_left, b_right;
     private MaterialBean materialBean;
     private ArrayList<MaterialBean> materialBeans;
 
@@ -43,11 +45,30 @@ public class MaterialDetailItem extends Fragment{
 
         ll_detail_item = (LinearLayout) viewHierarchy.findViewById(R.id.ll_detail_item);
         b_edit_detail_item = (Button) viewHierarchy.findViewById(R.id.b_edit_detail_item);
+        b_left = (Button) viewHierarchy.findViewById(R.id.b_left);
+        b_right = (Button) viewHierarchy.findViewById(R.id.b_right);
+
         b_edit_detail_item.setOnClickListener(b_edit_onClick);
 
         materialBean = (MaterialBean) getArguments().getSerializable("mb");
         dialogHelper = new DialogHelper();
         progressDialog = dialogHelper.buildProgressDialog(getActivity(), "Loading...");
+
+
+
+        Drawable drawable = getActivity().getResources().getDrawable(R.drawable.ic_left);
+        drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.5),
+                (int)(drawable.getIntrinsicHeight()*0.5));
+        ScaleDrawable sd = new ScaleDrawable(drawable, 0, 20, 20);
+        b_left.setCompoundDrawables(null, null, sd.getDrawable(), null);
+
+        drawable = getActivity().getResources().getDrawable(R.drawable.ic_right);
+        drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.5),
+                (int)(drawable.getIntrinsicHeight()*0.5));
+        sd = new ScaleDrawable(drawable, 0, 20, 20);
+        b_right.setCompoundDrawables(sd.getDrawable(), null, null, null);
+
+
 
         new DownloadTextTask().execute();
         return viewHierarchy;

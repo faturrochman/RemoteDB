@@ -97,19 +97,9 @@ public class MaterialListView extends Fragment {
                 i++;
             }
 
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.listview_item, listContent);
-
             CustomListViewMaterialAdapter adapter = new CustomListViewMaterialAdapter(getActivity(), materialBeans);
 
             myList.setAdapter(adapter);
-//            myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                    Main main = (Main) getActivity();
-//                    main.onChangeFragmentToMaterialDetailItem((MaterialBean) x.get(position));
-//                }
-//            });
 
         }
     }
